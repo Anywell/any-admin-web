@@ -13,7 +13,7 @@
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
             <el-dropdown-item>
-              ger
+              个人信息
             </el-dropdown-item>
           </router-link>
           <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
@@ -50,7 +50,10 @@ export default {
     },
     async logout() {
       await this.$store.dispatch('user/logout')
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      // 注销时删除所有tagview
+      await this.$store.dispatch('tagsView/delAllViews')
+      sessionStorage.removeItem('tabViews')
+      this.$router.push(`/login`)
     }
   }
 }
